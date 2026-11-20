@@ -1,0 +1,85 @@
+/* Token Radar dashboard: deep navy, warm amber accent, one type scale. */
+* { box-sizing: border-box; }
+:root {
+  --bg: #0b1220; --panel: #111a2c; --panel2: #16233a; --line: #24344f;
+  --text: #e6edf3; --muted: #93a1b5; --amber: #f5b942; --teal: #2dd4bf;
+  --red: #f87171; --blue: #7aa7ff;
+}
+html { background: var(--bg); }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.55 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+a { color: var(--amber); }
+.skip { position: absolute; left: -999px; top: 0; background: var(--amber); color: #111; padding: 8px 12px; }
+.skip:focus { left: 8px; top: 8px; z-index: 20; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 20px 18px 48px; }
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 6px 0 14px; border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 800; letter-spacing: .2px; }
+.mark { width: 22px; height: 22px; border-radius: 6px; background: var(--amber);
+  box-shadow: inset 0 -6px 0 rgba(0,0,0,.25); display: inline-block; }
+.top-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.top-meta span { background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+  padding: 4px 10px; font-size: 12px; color: var(--muted); }
+.lede { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; padding: 22px 0 8px; }
+.lede h1 { margin: 0 0 8px; font-size: 30px; line-height: 1.2; }
+.lede p { margin: 0; color: var(--muted); max-width: 62ch; }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fact { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.fact span { display: block; font-size: 12px; color: var(--muted); }
+.fact b { font-size: 20px; }
+.controls { display: flex; gap: 12px; align-items: end; flex-wrap: wrap; margin: 18px 0 12px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label, .field .sub { font-size: 12px; color: var(--muted); }
+input[type="search"], select { background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  border-radius: 8px; padding: 9px 10px; font: inherit; min-width: 200px; }
+.tabs { display: flex; gap: 6px; }
+.tabs button, .button { background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  border-radius: 999px; padding: 8px 14px; font: inherit; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--amber); color: #14100a; border-color: var(--amber); font-weight: 700; }
+.count { margin-left: auto; color: var(--muted); font-size: 13px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+caption { text-align: left; padding: 12px 14px; color: var(--muted); font-size: 13px; }
+th, td { padding: 10px 12px; text-align: left; border-top: 1px solid var(--line); white-space: nowrap; }
+thead th { border-top: 0; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
+th button { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; padding: 0; text-transform: inherit; letter-spacing: inherit; }
+tbody tr { cursor: pointer; }
+tbody tr:hover, tbody tr:focus { background: var(--panel2); outline: none; }
+tbody tr[data-selected="true"] { background: #1b2c49; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.pos { color: var(--teal); } .neg { color: var(--red); }
+.name b { display: block; }
+.name .sub, .sub { color: var(--muted); font-size: 12px; }
+.implied { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
+.bar { width: 90px; height: 6px; background: #1e2c44; border-radius: 999px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--amber); }
+.status { background: #132a22; color: var(--teal); border: 1px solid #1f4d3f; border-radius: 999px; padding: 3px 9px; font-size: 12px; }
+.status.live { background: #1c2440; color: var(--blue); border-color: #2c3d6b; }
+.model { margin-top: 16px; padding: 18px; }
+.model h2, .detail-section h3 { margin: 0 0 6px; font-size: 17px; }
+.formula { background: #0a0f1c; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; overflow-x: auto; margin: 10px 0; }
+.empty { padding: 32px 18px; text-align: center; }
+.empty h2 { margin: 0 0 6px; }
+.button.primary { background: var(--amber); color: #14100a; border-color: var(--amber); font-weight: 700; }
+.detail { border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 16px;
+  padding: 0; max-width: 680px; width: calc(100vw - 32px); }
+.detail::backdrop { background: rgba(3, 7, 16, .72); }
+.detail-head { display: flex; justify-content: space-between; gap: 14px; padding: 18px 20px 0; }
+.detail-head h2 { margin: 4px 0; font-size: 24px; }
+.close { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; cursor: pointer; height: fit-content; }
+.detail-section { padding: 14px 20px 20px; border-top: 1px solid var(--line); margin-top: 14px; }
+.equation { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; margin: 10px 0; }
+.equation div { display: flex; justify-content: space-between; gap: 10px; background: #0a0f1c; border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; }
+.equation span { color: var(--muted); font-size: 13px; }
+.steps { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 10px; }
+.steps li::marker { color: var(--amber); font-weight: 700; }
+.steps .cost { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+.note { padding: 16px 2px 0; color: var(--muted); font-size: 13px; }
+@media (max-width: 760px) {
+  .lede { grid-template-columns: 1fr; }
+  .lede h1 { font-size: 24px; }
+  .equation { grid-template-columns: 1fr; }
+  input[type="search"], select { min-width: 0; width: 100%; }
+  .field { flex: 1 1 160px; }
+}
